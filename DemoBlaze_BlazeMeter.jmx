@@ -6,6 +6,8 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager">
@@ -59,7 +61,7 @@
         <stringProp name="HTTPSampler.implementation"></stringProp>
       </ConfigTestElement>
       <hashTree/>
-      <DNSCacheManager guiclass="DNSCachePanel" testclass="DNSCacheManager" testname="DNS Cache Manager">
+      <DNSCacheManager guiclass="DNSCachePanel" testclass="DNSCacheManager" testname="DNS Cache Manager" enabled="true">
         <collectionProp name="DNSCacheManager.servers"/>
         <collectionProp name="DNSCacheManager.hosts"/>
         <boolProp name="DNSCacheManager.clearEachIteration">true</boolProp>
@@ -78,7 +80,7 @@
         <boolProp name="CacheManager.controlledByThread">false</boolProp>
       </CacheManager>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="UC01_Registration">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="UC01_Registration" enabled="true">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -88,7 +90,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC01_T01_Open_start_page">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC01_T01_Open_start_page" enabled="true">
           <stringProp name="TestPlan.comments">https://demoblaze.com/</stringProp>
           <stringProp name="HTTPSampler.domain">${BASE_URL_2}</stringProp>
           <stringProp name="HTTPSampler.port">0</stringProp>
@@ -115,7 +117,7 @@
             </collectionProp>
           </HeaderManager>
           <hashTree/>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Uniform Random Timer">
+          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Uniform Random Timer" enabled="true">
             <stringProp name="RandomTimer.range">1.0</stringProp>
             <stringProp name="ConstantTimer.delay">0</stringProp>
             <stringProp name="TestPlan.comments">Recorded time was 0 milliseconds</stringProp>
@@ -143,8 +145,8 @@ String password = generateRandomString(8)
 vars.put(&quot;login1&quot;, login) // Сохранение логина и пароля в переменные 
 vars.put(&quot;password1&quot;, password)
 
-log.info(&quot;Generated login: &quot; + login) // Логирование значений для отладки
-log.info(&quot;Generated password: &quot; + password)</stringProp>
+log.info(&quot;Сгенерированный логин: &quot; + login) // Логирование значений для отладки
+log.info(&quot;Сгенерированный пароль: &quot; + password)</stringProp>
           <stringProp name="scriptLanguage">groovy</stringProp>
           <stringProp name="TestPlan.comments">Генерация данных пользователя (рандомный логин, пароль). Сохранение логина и пароля в переменные</stringProp>
         </JSR223Sampler>
@@ -170,7 +172,7 @@ log.info(&quot;Generated password: &quot; + password)</stringProp>
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="Accept" elementType="Header">
                 <stringProp name="Header.name">Accept</stringProp>
@@ -192,15 +194,14 @@ log.info(&quot;Generated password: &quot; + password)</stringProp>
 def login = vars.get(&quot;login1&quot;) // Получение переменных
 def password = vars.get(&quot;password1&quot;)
 
-// Создание заголовка файла, если файл еще не существует
-File file = new File(filePath)
+File file = new File(filePath) // Создание заголовка файла, если файл еще не существует
 if (!file.exists()) {
     file &lt;&lt; &quot;Login,Password\n&quot;  // Заголовки для колонок в документе
 }
 
 file &lt;&lt; &quot;${login1},${password1}\n&quot; // Запись переменных в CSV файл
 
-log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) // Логирование </stringProp>
+log.info(&quot;Схраненный логин: ${login1} и пароль: ${password1} в CSV файл&quot;) // Логирование </stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="TestPlan.comments">Запись сгенерированных данных в файл CSV. </stringProp>
           </JSR223PostProcessor>
@@ -223,7 +224,7 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config">
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
           <stringProp name="filename">C:/Users/ADMIN/Desktop/Тулы/Исходники/login_passw.csv</stringProp>
@@ -262,7 +263,7 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
             </collectionProp>
           </HeaderManager>
           <hashTree/>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Uniform Random Timer">
+          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Uniform Random Timer" enabled="true">
             <stringProp name="RandomTimer.range">0.0</stringProp>
             <stringProp name="ConstantTimer.delay">0</stringProp>
             <stringProp name="TestPlan.comments">Recorded time was 0 milliseconds</stringProp>
@@ -290,7 +291,7 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="Accept" elementType="Header">
                 <stringProp name="Header.name">Accept</stringProp>
@@ -311,7 +312,7 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
         </DebugSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="UC04_Buy_Phone">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="UC03_Buy_Phone">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -333,10 +334,10 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC04_T02_View_Phone">
-          <stringProp name="HTTPSampler.domain">${BASE_URL_2}</stringProp>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC04_T02_View_phone">
+          <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">index.html</stringProp>
+          <stringProp name="HTTPSampler.path">/entries</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -346,65 +347,192 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="price_Extractor" enabled="false">
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Price_Extractor">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">price</stringProp>
-            <stringProp name="RegexExtractor.regex"></stringProp>
+            <stringProp name="RegexExtractor.regex">&quot;price&quot;:([^&quot;]*),</stringProp>
             <stringProp name="RegexExtractor.template">$1$</stringProp>
             <stringProp name="RegexExtractor.default">error_price</stringProp>
             <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
-            <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <stringProp name="RegexExtractor.match_number">-1</stringProp>
           </RegexExtractor>
           <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="false">
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Id_Extractor">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">id</stringProp>
+            <stringProp name="RegexExtractor.regex">&quot;id&quot;:([^&quot;]*),</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">error_id</stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+            <stringProp name="RegexExtractor.match_number">-1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Description_Extractor">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">description</stringProp>
+            <stringProp name="RegexExtractor.regex">&quot;desc&quot;:\s*&quot;([^&quot;]*)&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">error_GB</stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+            <stringProp name="RegexExtractor.match_number">-1</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="script">   import org.jsoup.Jsoup
-   import org.jsoup.nodes.Document
+            <stringProp name="script">List prices = new ArrayList();
+List ids = new ArrayList();
+List descriptions = new ArrayList();
 
-   def html = vars.get(&quot;response&quot;)
+for (int i = 1; i &lt;= (vars.get(&quot;price_matchNr&quot;) as int); i++) {
+	prices.add(vars.get(&quot;price_&quot; + i) as double)
+}
+for (int i = 1; i &lt;= (vars.get(&quot;id_matchNr&quot;) as int); i++) {
+	ids.add(vars.get(&quot;id_&quot; + i))
+}
+for (int i = 1; i &lt;= (vars.get(&quot;description_matchNr&quot;) as int); i++) {
+	descriptions.add(vars.get(&quot;description_&quot; + i) as String)
+}
 
-   def elements =</stringProp>
+double maxPrice = Collections.max(prices) as double // Поиск максимальной цены в списке прайсов
+String foundDescription = descriptions.find { desc -&gt; // Поиск описания, содержащего текст &quot;16gb&quot; в списке descriptions
+  desc.toLowerCase().contains(&quot;16gb&quot;) 
+}
+
+int maxPriceIndex = prices.indexOf(maxPrice) // Определение индекса максимальной цены в списке
+int foundDescriptionIndex = descriptions.indexOf(foundDescription) // Определение индекса найденного описания в списке
+int randomIndex = new Random().nextInt(ids.size()) // Генерация случайного индекса из длинны списка
+
+String maxPricePhoneId = (ids[maxPriceIndex]) // Поиск id телефона с максимальной ценой по индексу
+String GB16PhoneId = (ids[foundDescriptionIndex]) // Поиск id телефона с описанием &quot;16GB&quot;
+String randomId = (ids[randomIndex]) // Получение случайного id по индексу
+
+vars.put(&quot;maxPricePhoneId&quot;, maxPricePhoneId) // Сохранение id с макс.прайсом в переменную для использования в следующем запросе
+vars.put(&quot;GB16PhoneId&quot;, GB16PhoneId) // Сохранение найденного id телефона с 16GB в переменную
+vars.put(&quot;randomId&quot;, randomId) // Сохранение случайного id в переменную 
+
+log.info(&quot;Максимальная цена: &quot; + maxPrice) // Логирование
+log.info(&quot;Описания всех телефонов: &quot; + descriptions)
+log.info(&quot;Найденое описание телефона с 16 GB памяти: &quot; + foundDescription)
+log.info(&quot;Id телефона с максимальной ценой: &quot; + maxPricePhoneId)
+log.info(&quot;Id телефона с 16 гигами: &quot; + GB16PhoneId)
+log.info(&quot;Случайный id: &quot; + randomId)</stringProp>
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC04_T03_Selection_phone">
-          <stringProp name="HTTPSampler.domain">${BASE_URL_2}</stringProp>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC03_T03_Choice_phone_maxPrice">
+          <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
+          <stringProp name="HTTPSampler.port">0</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">/prod.html?idp_=2</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-        </HTTPSamplerProxy>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC04_T04_Selection_phone POST" enabled="false">
-          <stringProp name="HTTPSampler.domain">${BASE_URL_2}</stringProp>
-          <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">/prod.html?idp_=2#</stringProp>
+          <stringProp name="HTTPSampler.path">view</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
-              <elementProp name="//*[@id" elementType="HTTPArgument">
+              <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">&quot;tbodyid&quot;]/div[2]/div/a</stringProp>
+                <stringProp name="Argument.value">{&quot;id&quot;:&quot;${maxPricePhoneId}&quot;}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
-                <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">//*[@id</stringProp>
               </elementProp>
             </collectionProp>
           </elementProp>
         </HTTPSamplerProxy>
-        <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC04_T05_Open_cart_page">
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">*/*</stringProp>
+              </elementProp>
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
+            <stringProp name="ConstantTimer.delay">300</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC03_T04_Choice_phone_16GB">
+          <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
+          <stringProp name="HTTPSampler.port">0</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">view</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;id&quot;:&quot;${GB16PhoneId}&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">*/*</stringProp>
+              </elementProp>
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer">
+            <stringProp name="ConstantTimer.delay">300</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC03_T05_Choice_randomPhone">
+          <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
+          <stringProp name="HTTPSampler.port">0</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.path">view</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;id&quot;:&quot;${randomId}&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">*/*</stringProp>
+              </elementProp>
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC04_T06_Open_cart_page">
           <stringProp name="HTTPSampler.domain">${BASE_URL_2}</stringProp>
           <stringProp name="HTTPSampler.port">0</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -438,7 +566,7 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
           </UniformRandomTimer>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC03_T06_Close_pages">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC03_T07_Close_pages">
           <stringProp name="HTTPSampler.domain">${BASE_URL_2}</stringProp>
           <stringProp name="HTTPSampler.port">0</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -479,7 +607,7 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
         </DebugSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="UC03_Buy_Phone_Test_version" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="UC04_Buy_Phone_Test_version" enabled="false">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <longProp name="ThreadGroup.duration">0</longProp>
         <longProp name="ThreadGroup.delay">0</longProp>
@@ -491,7 +619,7 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC03_T01_Open_start_page" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC03_T01_Open_start_page">
           <stringProp name="TestPlan.comments">https://demoblaze.com/</stringProp>
           <stringProp name="HTTPSampler.domain">${BASE_URL_2}</stringProp>
           <stringProp name="HTTPSampler.port">0</stringProp>
@@ -525,7 +653,7 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
           </UniformRandomTimer>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC03_T02_Open_avtorization_page" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UC03_T02_Open_avtorization_page">
           <stringProp name="TestPlan.comments">https://api.demoblaze.com/login</stringProp>
           <stringProp name="HTTPSampler.domain">${BASE_URL_1}</stringProp>
           <stringProp name="HTTPSampler.port">0</stringProp>
@@ -725,7 +853,7 @@ log.info(&quot;Saved login: ${login1} and password: ${password1} to CSV&quot;) /
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="Accept" elementType="Header">
                 <stringProp name="Header.name">Accept</stringProp>
